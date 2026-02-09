@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.util.UUID;
 
@@ -20,6 +21,8 @@ import java.util.UUID;
 public class DeliveryPreparationService {
 
     private final DeliveryRepository deliveryRepository;
+    private final DeliveryTimeEstimationService deliveryTimeEstimationService;
+    private final CourierPayoutCalculationService courierPayoutCalculationService;
 
     @Transactional
     public Delivery draft(DeliveryInput input) {
@@ -59,17 +62,20 @@ public class DeliveryPreparationService {
                 .street(recipientInput.getStreet())
                 .build();
 
-        Duration expectedDeliveryTime = Duration.ofHours(3);
-        BigDecimal distanceFee = new BigDecimal("10");
+//        Duration expectedDeliveryTime = Duration.ofHours(3);
+//        BigDecimal distanceFee = new BigDecimal("10");
+        DeliveryEstimate estimate = deliveryTimeEstimationService.estimate(sender, recipient);
+        BigDecimal distanceFree = calculateFee(estimate.getDistanceInKm());
 
-        BigDecimal payout = new BigDecimal("10");
+//        BigDecimal payout = new BigDecimal("10");
+        BigDecimal calculatedPayoud = courierPayoutCalculationService.calculatePayout(estimate.getDistanceInKm());
 
         var preparationDetails = Delivery.PreparationDetails.builder()
                 .recipient(recipient)
                 .sender(sender)
-                .expectedDeliveryTime(expectedDeliveryTime)
-                .courierPayout(payout)
-                .distanceFee(distanceFee)
+                .expectedDeliveryTime(estimate.getEstimatedTime())
+                .courierPayout(calculatedPayoud)
+                .distanceFee(distanceFree)
                 .build();
 
         delivery.editPreparationDetails(preparationDetails);
@@ -78,5 +84,11 @@ public class DeliveryPreparationService {
             delivery.addItem(itemInput.getName(), itemInput.getQuantity());
         }
 
+    }
+
+    private BigDecimal calculateFee(Double distanceInKm) {
+        return new BigDecimal("3")
+                .multiply(new BigDecimal(distanceInKm))
+                .setScale(2, RoundingMode.HALF_EVEN);
     }
 }
