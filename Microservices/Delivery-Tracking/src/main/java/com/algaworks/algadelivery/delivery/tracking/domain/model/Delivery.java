@@ -70,7 +70,7 @@ public class Delivery {
         return delivery;
     }
 
-    public UUID addItems(String name, Integer quantity) {
+    public UUID addItem(String name, Integer quantity) {
         Item item = Item.brandNew(name, quantity, this);
         items.add(item);
         calculateTotalItems();
@@ -92,12 +92,12 @@ public class Delivery {
         calculateTotalItems();
     }
 
-    public void editPrepararionDetails (PreparationDetails details) {
+    public void editPreparationDetails (PreparationDetails details) {
 
         verifyIfCanBeEdited();
 
         setSender(details.getSender());
-        setRecipient(details.getRecipiet());
+        setRecipient(details.getRecipient());
         setDistanceFee(details.getDistanceFee());
         setCourierPayout(details.getCourierPayout());
 
@@ -165,7 +165,7 @@ public class Delivery {
     @Builder
     public static class PreparationDetails {
         private ContactPoint sender;
-        private ContactPoint recipiet;
+        private ContactPoint recipient;
         private BigDecimal distanceFee;
         private BigDecimal courierPayout;
         private Duration expectedDeliveryTime;

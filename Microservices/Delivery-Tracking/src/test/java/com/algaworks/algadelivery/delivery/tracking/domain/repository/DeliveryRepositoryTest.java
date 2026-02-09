@@ -23,10 +23,10 @@ class DeliveryRepositoryTest {
     public void shoudPersist() {
         Delivery delivery = Delivery.draft();
 
-        delivery.editPrepararionDetails(createValidPreparationDetails());
+        delivery.editPreparationDetails(createValidPreparationDetails());
 
-        delivery.addItems("Computador", 2);
-        delivery.addItems("Notebook", 2);
+        delivery.addItem("Computador", 2);
+        delivery.addItem("Notebook", 2);
 
         deliveryRepository.saveAndFlush(delivery);
 
@@ -55,7 +55,7 @@ class DeliveryRepositoryTest {
 
         return Delivery.PreparationDetails.builder()
                 .sender(sender)
-                .recipiet(recipient)
+                .recipient(recipient)
                 .distanceFee(new BigDecimal("15.00"))
                 .courierPayout(new BigDecimal("5.00"))
                 .expectedDeliveryTime(Duration.ofHours(5))

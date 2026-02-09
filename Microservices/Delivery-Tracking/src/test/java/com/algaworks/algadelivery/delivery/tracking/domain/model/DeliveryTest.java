@@ -13,7 +13,7 @@ class DeliveryTest {
     @Test
     public void shouldChangeToPlaced() {
         Delivery delivery = Delivery.draft();
-        delivery.editPrepararionDetails(createValidPreparationDetails());
+        delivery.editPreparationDetails(createValidPreparationDetails());
 
         delivery.place();
 
@@ -53,7 +53,7 @@ class DeliveryTest {
 
         return Delivery.PreparationDetails.builder()
                 .sender(sender)
-                .recipiet(recipient)
+                .recipient(recipient)
                 .distanceFee(new BigDecimal("15.00"))
                 .courierPayout(new BigDecimal("5.00"))
                 .expectedDeliveryTime(Duration.ofHours(5))

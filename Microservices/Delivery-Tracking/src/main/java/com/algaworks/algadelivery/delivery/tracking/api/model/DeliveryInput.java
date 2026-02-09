@@ -19,7 +19,7 @@ public class DeliveryInput {
 
     @NonNull
     @Valid
-    private ContactPointInput recipiet;
+    private ContactPointInput recipient;
 
     @NotEmpty
     @Valid
