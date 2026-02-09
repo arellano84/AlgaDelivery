@@ -4,6 +4,7 @@ import com.algaworks.algadelivery.delivery.tracking.api.model.DeliveryInput;
 import com.algaworks.algadelivery.delivery.tracking.domain.model.CourierIdInput;
 import com.algaworks.algadelivery.delivery.tracking.domain.model.Delivery;
 import com.algaworks.algadelivery.delivery.tracking.domain.repository.DeliveryRepository;
+import com.algaworks.algadelivery.delivery.tracking.domain.service.DeliveryCheckpointService;
 import com.algaworks.algadelivery.delivery.tracking.domain.service.DeliveryPreparationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class DeliveryController {
 
     private final DeliveryPreparationService deliveryPreparationService;
     private final DeliveryRepository deliveryRepository;
+    private final DeliveryCheckpointService deliveryCheckpointService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,18 +51,18 @@ public class DeliveryController {
 
     @PostMapping("/{deliveryId}/placement")
     public void place(@PathVariable UUID deliveryId) {
-
+        deliveryCheckpointService.place(deliveryId);
     }
 
     @PostMapping("/{deliveryId}/pickups")
     public void pickup(@PathVariable UUID deliveryId,
                        @Valid @RequestBody CourierIdInput input) {
-
+        deliveryCheckpointService.pickUp(deliveryId,input.getCourierId());
     }
 
     @PostMapping("/{deliveryId}/completion")
     public void complete(@PathVariable UUID deliveryId) {
-
+        deliveryCheckpointService.complete(deliveryId);
     }
 
 }
