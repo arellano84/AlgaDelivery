@@ -22,7 +22,7 @@ spring:
 
 eureka:
   instance:
-    instance-id: ${random.value} #local pode ser aleatorio # name+port?
+    instance-id: ${spring.application.name}:${random.uuid} #local pode ser aleatorio # name+port?
     prefer-ip-address: true #melhor para testes locais
   client:
     service-url:
