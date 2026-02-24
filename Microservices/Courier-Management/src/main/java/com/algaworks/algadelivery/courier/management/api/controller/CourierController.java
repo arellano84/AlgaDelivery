@@ -63,7 +63,8 @@ public class CourierController {
 
 //        10.2. Configurando Timeout Pattern no Spring RestClient
 //        10.3. Retry Pattern com Resilience4j
-//        Código para probar la cofiguración de Timeout, Retry.
+//        10.4. Circuit Breaker Pattern com Resilience4j
+//        Código para probar la cofiguración de Timeout, Retry, Circuit Breaker.
         /*log.info("Calculating");
         if(Math.random() < 0.3) {
             throw new RuntimeException();
