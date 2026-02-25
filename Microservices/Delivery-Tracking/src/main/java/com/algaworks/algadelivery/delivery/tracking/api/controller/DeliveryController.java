@@ -44,6 +44,10 @@ public class DeliveryController {
     @GetMapping
     public PagedModel<Delivery> findAll(@PageableDefault Pageable pageable) {
 
+//        10.7. Circuit Breaker Pattern no API Gateway
+//        Código para probar la cofiguración de Circuit Breaker
+        /*if (Math.random() < 0.7)
+            throw new RuntimeException();*/
 //        10.5. Timeout Pattern no API Gateway
 //        Código para probar la cofiguración de Timeout
         /*int millis = new Random().nextInt(400);
