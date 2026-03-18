@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.algaworks.algadelivery</groupId>
 	<artifactId>Courier-Management</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>Courier-Management</name>
 	<description>Demo project for Sprint Boot</description>
 	<url/>
